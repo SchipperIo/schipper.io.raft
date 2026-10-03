@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <!-- Analysis: keep the same strictness as the source repo -->
+  <PropertyGroup>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <!--
+      Inherited NoWarn set carried over from the IonStream repo's Directory.Build.props,
+      since this project no longer sits under it. These suppress doc-comment, ConfigureAwait,
+      and a handful of style/design analyzer rules that the existing Raft code intentionally
+      does not satisfy (e.g. CA2007 ConfigureAwait, CA1848 LoggerMessage, CA1031 catch-all).
+    -->
+    <NoWarn>CS1591;CA5394;CA1873;CA1859;CA2007;CA1848;CA1849;CA1031;CA1515;CA1002;CA1819;CA1024;CA2201</NoWarn>
+  </PropertyGroup>
+
+  <!-- Package metadata -->
+  <PropertyGroup>
+    <PackageId>Schipper.Io.Raft</PackageId>
+    <Version>0.1.0-dev</Version>
+    <Authors>Schipper</Authors>
+    <Description>A self-contained, transport-agnostic C# implementation of the Raft consensus algorithm (leader election, log replication, commit/apply). No external dependencies beyond Microsoft.Extensions.Logging.Abstractions.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
